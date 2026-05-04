@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lenguaje Oral vs Escrito — LUZ</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS PROPORCIONADO (sin modificaciones)
+           ============================================ */
+        html, body {
+            font-size: 62.5%;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000;
+            color: #fff;
+            display: grid;
+            place-items: center;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .previewCard {
+            --gutter: 1.5rem;
+            --brightness: 0.85;
+            --saturation: 1.5;
+            --frostRadius: 1.5rem;
+
+            padding: var(--gutter);
+            border-radius: var(--gutter);
+            aspect-ratio: 4 / 3;
+            width: 100%;
+            max-width: 32rem;
+            display: grid;
+            justify-content: start;
+            align-content: end;
+            position: relative;
+            background: #333;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 250ms ease-in-out;
+
+            img {
+                transition: transform 500ms ease-in-out;
+            }
+
+            svg {
+                transition: transform 250ms ease-in-out;
+            }
+
+            &:hover {
+                transform: scale(1.05);
+
+                img {
+                    transform: scale(1.1);
+                }
+
+                svg {
+                    transform: scale(1.5);
+                }
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                inset: -0.5rem;
+                z-index: 1;
+                pointer-events: none;
+                backdrop-filter: blur(var(--frostRadius)) saturate(var(--saturation)) brightness(var(--brightness));
+                background: linear-gradient(
+                    to bottom,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.2) 100%
+                );
+                mask-image: linear-gradient(
+                    to bottom,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.1) 40%,
+                    rgba(0, 0, 0, 0.5) 55%,
+                    black 75%
+                );
+            }
+        }
+
+        .backdrop {
+            position: absolute;
+            object-fit: cover;
+            pointer-events: none;
+            user-select: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            bottom: 0;
+            justify-content: start;
+            align-content: end;
+            gap: 0.5rem;
+        }
+
+        .title {
+            font-size: 1.7rem;
+        }
+
+        .category {
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            opacity: 0.45;
+        }
+
+        .description {
+            font-size: 1.3rem;
+            line-height: 1.35;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            place-content: start;
+            gap: 0.5rem;
+
+            p {
+                margin: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            span {
+                transform: translateY(-0.1rem);
+                font-size: 4rem;
+                display: grid;
+                place-items: center;
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+
+        /* ============================================
+           CSS COMPLEMENTARIO
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            padding: 2rem;
+        }
+
+        .page-wrapper {
+            width: 100%;
+            max-width: 112rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        /* HEADER */
+        .header-institucional {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        .header-datos {
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.7;
+            line-height: 1.5;
+        }
+        .header-subdatos {
+            font-size: 1rem;
+            opacity: 0.4;
+            margin-top: 0.3rem;
+        }
+
+        /* HERO MINI */
+        .hero-mini {
+            text-align: center;
+            padding: 1rem 0 0;
+        }
+        .hero-mini h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+        .hero-mini h1 .oral-text { color: #f97316; }
+        .hero-mini h1 .escrito-text { color: #3b82f6; }
+        .hero-mini .hero-sub {
+            font-size: 1.4rem;
+            opacity: 0.5;
+            margin-top: 0.5rem;
+            font-weight: 400;
+        }
+        .hero-mini .hero-sub strong {
+            opacity: 1;
+            font-weight: 600;
+        }
+        .hero-mini .hero-hint {
+            font-size: 1.1rem;
+            opacity: 0.3;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        /* ========================================
+           CUADRO COMPARATIVO
+           ======================================== */
+        .comparativo-section {
+            width: 100%;
+        }
+        .comparativo-label {
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12rem;
+            opacity: 0.3;
+            margin-bottom: 0.6rem;
+        }
+        .comparativo-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+        }
+        .comparativo-hint {
+            text-align: center;
+            font-size: 1.05rem;
+            opacity: 0.25;
+            margin-bottom: 2rem;
+        }
+        .comparativo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .comparativo-col {
+            border-radius: 1.2rem;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .comparativo-col.col-oral {
+            background: rgba(249, 115, 22, 0.04);
+            border-color: rgba(249, 115, 22, 0.12);
+        }
+        .comparativo-col.col-escrito {
+            background: rgba(59, 130, 246, 0.04);
+            border-color: rgba(59, 130, 246, 0.12);
+        }
+        .comparativo-col-head {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .comparativo-col-head.col-head-oral {
+            background: rgba(249, 115, 22, 0.08);
+            border-bottom-color: rgba(249, 115, 22, 0.15);
+        }
+        .comparativo-col-head.col-head-escrito {
+            background: rgba(59, 130, 246, 0.08);
+            border-bottom-color: rgba(59, 130, 246, 0.15);
+        }
+        .col-icon {
+            width: 3.2rem;
+            height: 3.2rem;
+            border-radius: 0.8rem;
+            display: grid;
+            place-items: center;
+        }
+        .col-icon.ico-oral { background: rgba(249,115,22,0.2); color: #f97316; }
+        .col-icon.ico-escrito { background: rgba(59,130,246,0.2); color: #3b82f6; }
+        .col-icon svg { width: 1.6rem; height: 1.6rem; }
+        .col-head-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .col-head-text p {
+            font-size: 1rem;
+            opacity: 0.4;
+            margin-top: 0.1rem;
+        }
+
+        /* Fila comparativa */
+        .comp-row {
+            display: flex;
+            align-items: stretch;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 200ms ease;
+        }
+        .comp-row:last-child { border-bottom: none; }
+        .comp-row:hover { background: rgba(255,255,255,0.02); }
+        .comp-row-num {
+            width: 3.5rem;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            opacity: 0.2;
+            border-right: 1px solid rgba(255,255,255,0.04);
+        }
+        .comp-row-body {
+            flex: 1;
+            padding: 1rem 1.2rem;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.8rem;
+            min-width: 0;
+        }
+        .comp-row-text { flex: 1; min-width: 0; }
+        .comp-row-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .comp-row-desc {
+            font-size: 1.05rem;
+            opacity: 0.35;
+            margin-top: 0.15rem;
+            line-height: 1.35;
+        }
+        .popup-btn {
+            flex-shrink: 0;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.4rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            background: transparent;
+            color: rgba(255,255,255,0.2);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: all 200ms ease;
+            align-self: center;
+        }
+        .popup-btn:hover {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.8);
+        }
+        .popup-btn svg { width: 1.1rem; height: 1.1rem; }
+
+        .comparativo-grid-wrap {
+            position: relative;
+        }
+
+        /* Ejemplos rápidos dentro del comparativo */
+        .comp-ejemplos {
+            padding: 1rem 1.5rem 1.2rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .comp-ejemplos-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08rem;
+            opacity: 0.25;
+            margin-bottom: 0.6rem;
+        }
+        .comp-ejemplo-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 1rem;
+            opacity: 0.45;
+            padding: 0.3rem 0.7rem;
+            border-radius: 0.4rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.04);
+            margin: 0 0.3rem 0.3rem 0;
+        }
+        .comp-ejemplo-tag svg { width: 1rem; height: 1rem; }
+        .comp-ejemplo-tag.tag-o { border-color: rgba(249,115,22,0.15); }
+        .comp-ejemplo-tag.tag-e { border-color: rgba(59,130,246,0.15); }
+
+        /* ========================================
+           DETAIL OVERLAY
+           ======================================== */
+        .detail-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 3rem 2rem;
+            overflow-y: auto;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 350ms ease, visibility 350ms ease;
+        }
+        .detail-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .detail-panel {
+            width: 100%;
+            max-width: 80rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(1.5rem) saturate(1.5) brightness(0.9);
+            -webkit-backdrop-filter: blur(1.5rem) saturate(1.5) brightness(0.9);
+            padding: 3rem;
+            transform: translateY(2rem) scale(0.97);
+            transition: transform 400ms ease;
+        }
+        .detail-overlay.open .detail-panel {
+            transform: translateY(0) scale(1);
+        }
+        .detail-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .detail-header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .detail-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1rem;
+            display: grid;
+            place-items: center;
+        }
+        .detail-icon.icon-oral { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+        .detail-icon.icon-escrito { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .detail-icon.icon-evo { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+        .detail-icon svg { width: 2rem; height: 2rem; }
+        .detail-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .detail-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.4;
+            margin-top: 0.2rem;
+        }
+        .btn-close {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: background 200ms ease, transform 200ms ease;
+        }
+        .btn-close:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+        .btn-close svg { width: 1.8rem; height: 1.8rem; }
+
+        /* DETAIL SECTIONS */
+        .detail-section { margin-bottom: 2.5rem; }
+        .detail-section:last-child { margin-bottom: 0; }
+        .section-label {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            opacity: 0.35;
+            margin-bottom: 1rem;
+        }
+
+        /* CHARACTERISTIC ITEMS (inside detail) */
+        .char-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .char-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1rem;
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: background 200ms ease;
+        }
+        .char-item:hover { background: rgba(255, 255, 255, 0.06); }
+        .char-num {
+            font-size: 1.4rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: grid;
+            place-items: center;
+            border-radius: 0.6rem;
+        }
+        .char-num.num-oral { background: rgba(249, 115, 22, 0.12); color: #f97316; }
+        .char-num.num-escrito { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
+        .char-info { flex: 1; min-width: 0; }
+        .char-name { font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+        .char-desc { font-size: 1.1rem; opacity: 0.4; margin-top: 0.2rem; }
+
+        /* EXAMPLE BLOCKS */
+        .example-block {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-bottom: 1.2rem;
+        }
+        .example-block:last-child { margin-bottom: 0; }
+        .example-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 1rem;
+            opacity: 0.5;
+        }
+        .example-tag .tag-badge {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.4rem;
+        }
+        .tag-oral { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+        .tag-escrito { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .example-inner { padding: 1.2rem 1.4rem; }
+        .example-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 1rem;
+            opacity: 0.4;
+            line-height: 1.4;
+        }
+        .example-note svg { width: 1.2rem; height: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+        /* CHAT */
+        .chat-msg { display: flex; gap: 0.8rem; margin-bottom: 0.8rem; }
+        .chat-msg:last-child { margin-bottom: 0; }
+        .chat-msg.right { flex-direction: row-reverse; }
+        .chat-avatar {
+            width: 2.8rem;
+            height: 2.8rem;
+            border-radius: 0.7rem;
+            display: grid;
+            place-items: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .avatar-blue { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+        .avatar-orange { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+        .chat-meta { font-size: 0.9rem; opacity: 0.35; margin-bottom: 0.3rem; }
+        .chat-msg.right .chat-meta { text-align: right; }
+        .chat-bubble {
+            font-size: 1.15rem;
+            line-height: 1.4;
+            padding: 0.7rem 1rem;
+            border-radius: 0.8rem;
+            max-width: 90%;
+        }
+        .chat-bubble-left { background: rgba(255, 255, 255, 0.06); }
+        .chat-bubble-right { background: rgba(59, 130, 246, 0.15); }
+        .chat-bubble code {
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.3rem;
+        }
+
+        /* EMAIL */
+        .email-header {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.5;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 0.8rem;
+        }
+        .email-body { font-size: 1.15rem; line-height: 1.7; opacity: 0.7; }
+        .email-body p { margin-bottom: 0.5rem; }
+        .email-firma {
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 1.1rem;
+            opacity: 0.5;
+        }
+
+        /* TRANSCRIPT */
+        .transcript-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            opacity: 0.4;
+        }
+        .wave-mini { display: flex; gap: 0.2rem; align-items: center; }
+        .wave-mini-bar {
+            width: 0.3rem;
+            background: #f97316;
+            border-radius: 0.2rem;
+            animation: wavePulse 1.2s ease-in-out infinite;
+        }
+        .wave-mini-bar:nth-child(1) { animation-delay: 0s; height: 0.8rem; }
+        .wave-mini-bar:nth-child(2) { animation-delay: 0.15s; height: 1.2rem; }
+        .wave-mini-bar:nth-child(3) { animation-delay: 0.3s; height: 0.6rem; }
+        .wave-mini-bar:nth-child(4) { animation-delay: 0.45s; height: 1rem; }
+        .wave-mini-bar:nth-child(5) { animation-delay: 0.6s; height: 0.7rem; }
+        @keyframes wavePulse {
+            0%, 100% { transform: scaleY(0.5); opacity: 0.4; }
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+        .transcript-text { font-size: 1.15rem; line-height: 1.7; opacity: 0.65; }
+        .transcript-text p { margin-bottom: 0.8rem; }
+        .speaker { color: #f97316; font-weight: 600; }
+
+        /* FORUM */
+        .forum-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
+        .forum-title { font-size: 1.3rem; font-weight: 600; line-height: 1.4; }
+        .forum-body { font-size: 1.15rem; line-height: 1.6; opacity: 0.65; margin-bottom: 0.8rem; }
+        .forum-code {
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 0.6rem;
+            padding: 0.8rem 1rem;
+            margin: 0.6rem 0;
+            color: #ef4444;
+            line-height: 1.5;
+        }
+        .forum-stats { display: flex; gap: 1.5rem; font-size: 1rem; opacity: 0.3; }
+        .forum-stats span { display: flex; align-items: center; gap: 0.3rem; }
+        .forum-stats svg { width: 1.2rem; height: 1.2rem; }
+
+        /* AUDIO DEMO */
+        .audio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+        .audio-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1rem;
+            padding: 1.4rem;
+        }
+        .audio-card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .audio-card-label {
+            font-size: 1.15rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .audio-card-label.svg-oral { color: #f97316; }
+        .audio-card-label.svg-escrito { color: #3b82f6; }
+        .audio-card-label svg { width: 1.4rem; height: 1.4rem; }
+        .btn-audio {
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            background: rgba(249, 115, 22, 0.1);
+            color: #f97316;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: background 200ms ease;
+        }
+        .btn-audio:hover { background: rgba(249, 115, 22, 0.2); }
+        .btn-audio svg { width: 1.2rem; height: 1.2rem; }
+        .btn-audio-inactive {
+            border-color: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.3);
+            cursor: default;
+        }
+        .waveform {
+            display: flex;
+            gap: 0.25rem;
+            align-items: center;
+            height: 2rem;
+            margin-bottom: 0.8rem;
+        }
+        .wave-bar {
+            width: 0.35rem;
+            background: #f97316;
+            border-radius: 0.2rem;
+            opacity: 0.2;
+            height: 30%;
+            transition: height 200ms ease, opacity 200ms ease;
+        }
+        .wave-bar:nth-child(1) { height: 40%; }
+        .wave-bar:nth-child(2) { height: 70%; }
+        .wave-bar:nth-child(3) { height: 50%; }
+        .wave-bar:nth-child(4) { height: 90%; }
+        .wave-bar:nth-child(5) { height: 60%; }
+        .wave-bar:nth-child(6) { height: 80%; }
+        .wave-bar:nth-child(7) { height: 45%; }
+        .wave-bar:nth-child(8) { height: 65%; }
+        .wave-bar.activo {
+            opacity: 0.8;
+            animation: waveAnim 0.8s ease-in-out infinite alternate;
+        }
+        .wave-bar.activo:nth-child(1) { animation-delay: 0s; }
+        .wave-bar.activo:nth-child(2) { animation-delay: 0.1s; }
+        .wave-bar.activo:nth-child(3) { animation-delay: 0.2s; }
+        .wave-bar.activo:nth-child(4) { animation-delay: 0.05s; }
+        .wave-bar.activo:nth-child(5) { animation-delay: 0.15s; }
+        .wave-bar.activo:nth-child(6) { animation-delay: 0.25s; }
+        .wave-bar.activo:nth-child(7) { animation-delay: 0.08s; }
+        .wave-bar.activo:nth-child(8) { animation-delay: 0.18s; }
+        @keyframes waveAnim {
+            0% { height: 20%; }
+            100% { height: 100%; }
+        }
+        .waveform-placeholder { height: 2rem; margin-bottom: 0.8rem; }
+        .audio-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.6;
+            font-style: italic;
+        }
+        .audio-text.reproduciendo { color: #f97316; opacity: 0.9; }
+        .audio-tag { font-size: 0.9rem; opacity: 0.3; margin-top: 0.6rem; }
+
+        /* ADVANTAGE / LIMITATION ITEMS */
+        .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .adv-item {
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .adv-icon { flex-shrink: 0; margin-top: 0.15rem; }
+        .adv-icon svg { width: 1.4rem; height: 1.4rem; }
+        .adv-icon.check-oral svg { color: #f97316; }
+        .adv-icon.check-escrito svg { color: #3b82f6; }
+        .adv-icon.x-oral svg { color: #ef4444; }
+        .adv-icon.x-escrito svg { color: #ef4444; }
+        .adv-name { font-size: 1.15rem; font-weight: 600; line-height: 1.3; }
+        .adv-desc { font-size: 1rem; opacity: 0.4; margin-top: 0.15rem; line-height: 1.4; }
+
+        /* CONCLUSION */
+        .conclusion-box {
+            background: rgba(168, 85, 247, 0.06);
+            border: 1px solid rgba(168, 85, 247, 0.15);
+            border-radius: 1rem;
+            padding: 1.5rem 1.8rem;
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+        }
+        .conclusion-box svg { color: #a855f7; width: 2rem; height: 2rem; flex-shrink: 0; margin-top: 0.2rem; }
+        .conclusion-box h4 { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .conclusion-box p { font-size: 1.15rem; line-height: 1.7; opacity: 0.6; }
+        .text-oral { color: #f97316; font-weight: 600; }
+        .text-escrito { color: #3b82f6; font-weight: 600; }
+
+        /* VERTICAL TIMELINE */
+        .timeline-vertical {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem 0;
+            position: relative;
+        }
+        .timeline-line {
+            width: 3px;
+            background: linear-gradient(to bottom, 
+                rgba(239, 68, 68, 0.3) 0%, 
+                rgba(239, 68, 68, 0.3) 57%, 
+                rgba(59, 130, 246, 0.3) 57%, 
+                rgba(59, 130, 246, 0.3) 100%);
+            position: relative;
+            flex-shrink: 0;
+        }
+        .timeline-points {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            position: relative;
+        }
+        .timeline-dot-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .timeline-dot {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background: #ef4444;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            transition: all 300ms ease;
+        }
+        .timeline-dot.dot-blue { background: #3b82f6; }
+        .timeline-dot.dot-current {
+            background: #a855f7;
+            box-shadow: 0 0 1.5rem rgba(168, 85, 247, 0.6);
+            width: 2rem;
+            height: 2rem;
+        }
+        .timeline-dot:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 1.5rem rgba(255, 255, 255, 0.3);
+        }
+        .timeline-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            opacity: 0.6;
+            transition: all 300ms ease;
+            cursor: pointer;
+        }
+        .timeline-content:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(0.5rem);
+        }
+        .timeline-fecha {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f97316;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-nombre {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+        .timeline-detalles {
+            font-size: 1rem;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 400ms ease;
+            line-height: 1.6;
+        }
+        .timeline-item:hover .timeline-detalles {
+            opacity: 0.8;
+            max-height: 500px;
+            margin-top: 0.8rem;
+        }
+        .timeline-especie {
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 0.3rem;
+        }
+        .timeline-era {
+            font-weight: 600;
+            color: #a855f7;
+            margin-bottom: 0.3rem;
+        }
+        .timeline-legend {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            opacity: 0.4;
+        }
+        .legend-item { display: flex; align-items: center; gap: 0.5rem; }
+        .legend-dot { width: 0.8rem; height: 0.8rem; border-radius: 50%; }
+        .legend-dot.red { background: #ef4444; }
+        .legend-dot.blue { background: #3b82f6; }
+
+        /* INSIGHT CARDS */
+        .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+        .insight-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+        .insight-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.7rem;
+            display: grid;
+            place-items: center;
+            margin-bottom: 1rem;
+        }
+        .insight-icon.i-oral { background: rgba(249, 115, 22, 0.12); color: #f97316; }
+        .insight-icon.i-purple { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
+        .insight-icon.i-blue { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
+        .insight-icon svg { width: 1.6rem; height: 1.6rem; }
+        .insight-card h4 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .insight-card p { font-size: 1.05rem; opacity: 0.45; line-height: 1.5; }
+
+        /* POPUP MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 250ms ease, visibility 250ms ease;
+        }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal-box {
+            background: rgba(30, 30, 30, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.2rem;
+            padding: 2rem;
+            max-width: 50rem;
+            width: 100%;
+            transform: scale(0.95);
+            transition: transform 250ms ease;
+        }
+        .modal-overlay.show .modal-box { transform: scale(1); }
+        .modal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .modal-head h3 { font-size: 1.4rem; font-weight: 600; }
+        .modal-close {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.6rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: transparent;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: all 200ms ease;
+        }
+        .modal-close:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+        .modal-close svg { width: 1.4rem; height: 1.4rem; }
+        .modal-body { font-size: 1.2rem; line-height: 1.7; opacity: 0.65; }
+        .modal-foot {
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.9rem;
+            opacity: 0.25;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .modal-foot svg { width: 1rem; height: 1rem; }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(1rem);
+            background: rgba(30, 30, 30, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.8rem;
+            padding: 0.8rem 1.4rem;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 300ms ease;
+            z-index: 300;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .toast.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast svg { width: 1.4rem; height: 1.4rem; color: #eab308; flex-shrink: 0; }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            font-size: 1rem;
+            opacity: 0.3;
+            line-height: 1.6;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: 1fr;
+                max-width: 32rem;
+                margin: 0 auto;
+            }
+            .comparativo-grid { grid-template-columns: 1fr; }
+            .comparativo-vs { display: none; }
+            .char-grid,
+            .adv-grid,
+            .audio-grid,
+            .insight-grid {
+                grid-template-columns: 1fr;
+            }
+            .detail-panel { padding: 1.5rem; }
+            .hero-mini h1 { font-size: 2rem; }
+            body { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    
+    <!-- HERO -->
+    <div class="hero-mini">
+        <h1><span class="oral-text">Lenguaje Oral</span> y <span class="escrito-text">Lenguaje Escrito</span></h1>
+        <p class="hero-sub">en el ámbito <strong>académico</strong> y <strong>tecnológico</strong></p>
+            </div>
+
+    <!-- CARDS -->
+    <div class="cards">
+        <div class="previewCard" onclick="openDetail('oral')">
+            <img class="backdrop" src="oral.jpg" alt="Lenguaje Oral">
+            <div class="content">
+                <p class="title">Lenguaje Oral</p>
+                <div class="description">
+                    <p>Hablar y escuchar en tiempo real :)</p>
+                </div>
+            </div>
+        </div>
+        <div class="previewCard" onclick="openDetail('escrito')">
+            <img class="backdrop" src="escrito.png" alt="Lenguaje Escrito">
+            <div class="content">
+                <p class="title">Lenguaje Escrito</p>
+                <div class="description">
+                    <p>Palabras que perduran en el tiempo ;)</p>
+                </div>
+            </div>
+        </div>
+        <div class="previewCard" onclick="openDetail('evolucion')">
+            <img class="backdrop" src="evolucion.jpg" alt="Evolución Digital">
+            <div class="content">
+                <p class="title">Evolución del Lenguaje</p>
+                <div class="description">
+                    <p>Del sonido vocal a la IA :)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         CUADRO COMPARATIVO (visible directo)
+         ========================================== -->
+    <section class="comparativo-section">
+        <h2 class="comparativo-title">Cuadro Comparativo</h2>
+
+        <div class="comparativo-grid-wrap">
+            <div class="comparativo-grid">
+
+                <!-- COLUMNA ORAL -->
+                <div class="comparativo-col col-oral">
+                    <div class="comparativo-col-head col-head-oral">
+                        <div class="col-icon ico-oral"><i data-lucide="mic"></i></div>
+                        <div class="col-head-text">
+                            <h3>Lenguaje Oral</h3>
+                            <p>Comunicación hablada</p>
+                        </div>
+                    </div>
+
+                    <div class="comp-row">
+                        <div class="comp-row-num">01</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Inmediato y efímero</p>
+                                <p class="comp-row-desc">Desaparece al emitirse; no deja registro físico.</p>
+                            </div>
+                            <button class="popup-btn" data-title="Efemeridad del lenguaje oral" data-content="La explicación oral de un algoritmo no deja registro físico a menos que se grabe. Una vez explicado, solo persiste en la memoria de los estudiantes. En clase de programación, la lógica explicada por el profesor se pierde si el alumno no implementa el código."><i data-lucide="info"></i></button>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">02</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Retroalimentación instantánea</p>
+                                <p class="comp-row-desc">El receptor responde al instante.</p>
+                            </div>
+                            <button class="popup-btn" data-title="Retroalimentación en tiempo real" data-content="En una clase en línea, si un alumno no entiende un concepto, puede levantar la mano virtual y el profesor explica de otra forma al instante. Esto facilita el aprendizaje frente a esperar un mensaje por correo o chat."><i data-lucide="info"></i></button>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">03</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Comunicación multimodal</p>
+                                <p class="comp-row-desc">Tono, gestos, expresiones faciales acompañan el mensaje.</p>
+                            </div>
+                            <button class="popup-btn" data-title="Multimodalidad" data-content="Al resolver una ecuación en clase, el profesor usa gestos, dibujos en el pizarrón y entonación para enfatizar pasos importantes. Un 'esto es obvio' dicho con tono de duda no significa lo mismo que un 'esto es obvio' firme. La escritura matemática carece de estos matices."><i data-lucide="info"></i></button>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">04</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Sintaxis sencilla y fragmentada</p>
+                                <p class="comp-row-desc">Oraciones cortas, hesitaciones, repeticiones.</p>
+                            </div>
+                            <button class="popup-btn" data-title="Estructura sintáctica oral" data-content="En una clase oral es normal decir: 'O sea... la ecuación... bueno, lo que tenemos que hacer es... despejar la x'. La escritura exigiría: 'Para resolver la ecuación, se debe despejar la variable x mediante operaciones algebraicas'."><i data-lucide="info"></i></button>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">05</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Poca planificación previa</p>
+                                <p class="comp-row-desc">Espontáneo, se construye en vivo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">06</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Dependiente del contexto</p>
+                                <p class="comp-row-desc">Requiere presencia o conexión sincrónica.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comp-ejemplos">
+                        <p class="comp-ejemplos-label">Ejemplos en computación</p>
+                        <span class="comp-ejemplo-tag tag-o"><i data-lucide="video"></i> Videollamadas</span>
+                        <span class="comp-ejemplo-tag tag-o"><i data-lucide="presentation"></i> Clases</span>
+                        <span class="comp-ejemplo-tag tag-o"><i data-lucide="users"></i> Stand-ups</span>
+                        <span class="comp-ejemplo-tag tag-o"><i data-lucide="phone"></i> Llamadas</span>
+                    </div>
+                </div>
+
+                <!-- COLUMNA ESCRITO -->
+                <div class="comparativo-col col-escrito">
+                    <div class="comparativo-col-head col-head-escrito">
+                        <div class="col-icon ico-escrito"><i data-lucide="type"></i></div>
+                        <div class="col-head-text">
+                            <h3>Lenguaje Escrito</h3>
+                            <p>Comunicación textual</p>
+                        </div>
+                    </div>
+
+                    <div class="comp-row">
+                        <div class="comp-row-num">01</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Permanente y revisable</p>
+                                <p class="comp-row-desc">Persiste y puede consultarse cuantas veces sea necesario.</p>
+                            </div>
+                            <button class="popup-btn" data-title="Permanencia del texto escrito" data-content="Las instrucciones de una tarea en Classroom quedan disponibles para cualquier estudiante que ingrese a la plataforma. A diferencia de una explicación verbal en clase, el documento sobrevive al momento de creación y puede ser consultado tiempo después."><i data-lucide="info"></i></button>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">02</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Sin retroalimentación inmediata</p>
+                                <p class="comp-row-desc">El lector procesa después; hay demora.</p>
+                            </div>
+                            <button class="popup-btn" data-title="Asincronía de la escritura" data-content="Al enviar un mensaje al profesor con una duda sobre un proyecto, no sabes si tu mensaje fue claro hasta que te responde. Esto puede generar retrasos en comparación con preguntar directamente en clase."><i data-lucide="info"></i></button>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">03</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Unimodal (solo texto)</p>
+                                <p class="comp-row-desc">Sin tono ni gestos; usa puntuación y emojis.</p>
+                            </div>
+                            <button class="popup-btn" data-title="Limitación unimodal" data-content="Un mensaje de chat que dice 'bien' puede interpretarse como aprobación, indiferencia o sarcasmo. Por eso surgieron emojis y formatos como *cursivas* o MAYÚSCULAS para compensar la ausencia de tono de voz."><i data-lucide="info"></i></button>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">04</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Sintaxis compleja y elaborada</p>
+                                <p class="comp-row-desc">Oraciones subordinadas, precisión léxica.</p>
+                            </div>
+                            <button class="popup-btn" data-title="Complejidad sintáctica escrita" data-content="En una documentación técnica se escribe: 'El método sort() implementa el algoritmo QuickSort con complejidad O(n log n) en el caso promedio'. Esto sería difícil de seguir en una conversación oral sin apoyo visual."><i data-lucide="info"></i></button>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">05</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Requiere planificación y edición</p>
+                                <p class="comp-row-desc">Se revisa antes de publicar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comp-row">
+                        <div class="comp-row-num">06</div>
+                        <div class="comp-row-body">
+                            <div class="comp-row-text">
+                                <p class="comp-row-name">Independiente del contexto temporal</p>
+                                <p class="comp-row-desc">Emisor y lector no coinciden en tiempo.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comp-ejemplos">
+                        <p class="comp-ejemplos-label">Ejemplos en computación</p>
+                        <span class="comp-ejemplo-tag tag-e"><i data-lucide="mail"></i> Correos</span>
+                        <span class="comp-ejemplo-tag tag-e"><i data-lucide="message-square"></i> Chats</span>
+                        <span class="comp-ejemplo-tag tag-e"><i data-lucide="layout-list"></i> Foros</span>
+                        <span class="comp-ejemplo-tag tag-e"><i data-lucide="file-text"></i> README / Docs</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    </div>
+
+<!-- ==========================================
+     DETAIL: ORAL
+     ========================================== -->
+<div class="detail-overlay" id="detail-oral">
+    <div class="detail-panel">
+        <div class="detail-header">
+            <div class="detail-header-left">
+                <div class="detail-icon icon-oral"><i data-lucide="mic"></i></div>
+                <div>
+                    <h2 class="detail-title">Lenguaje Oral</h2>
+                    <p class="detail-subtitle">Ejemplos reales, ventajas y limitaciones</p>
+                </div>
+            </div>
+            <button class="btn-close" onclick="closeDetail('oral')"><i data-lucide="x"></i></button>
+        </div>
+
+        <div class="detail-section">
+            <p class="section-label">Ejemplo real — Videollamada de equipo (Zoom / Meet)</p>
+            <div class="example-block">
+                <div class="example-tag"><span class="tag-badge tag-oral">Oral</span> Transcripción automática</div>
+                <div class="example-inner">
+                    <div class="transcript-indicator">
+                        <div class="wave-mini"><div class="wave-mini-bar"></div><div class="wave-mini-bar"></div><div class="wave-mini-bar"></div><div class="wave-mini-bar"></div><div class="wave-mini-bar"></div></div>
+                        <span>Transcripción en vivo</span>
+                        <button id="btn-play-video" class="btn-audio btn-audio-small" onclick="playVideo(event)" style="margin-left: auto;">
+                            <i data-lucide="play" id="play-video-icon"></i>
+                            <span id="play-video-text">Escuchar</span>
+                        </button>
+                    </div>
+                    <div class="transcript-text">
+                        <p><span class="speaker">Carlos:</span> "Oigan, oigan... ¿ya vieron lo que pasó con el servidor? Se cayó como a las tres de la mañana y... bueno, todavía no sabemos bien qué pasó, pero creo que fue el deploy."</p>
+                        <p><span class="speaker">María:</span> "¿En serio? Yo estaba trabajando en el frontend y de repente ya no conectaba... o sea, pensé que era mi internet."</p>
+                        <p><span class="speaker">Carlos:</span> "No, no, fue el server. Ya le escribí al profe por correo, pero todavía no responde. ¿Quién puede revisar los logs?"</p>
+                    </div>
+                </div>
+                <div class="example-note"><i data-lucide="lightbulb"></i>Hesitaciones ("o sea", "bueno"), oraciones incompletas, repeticiones — rasgos típicos del lenguaje oral.</div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <p class="section-label">Demo interactivo — Oral vs. Escrito</p>
+            <div class="audio-grid">
+                <div class="audio-card">
+                    <div class="audio-card-head">
+                        <span class="audio-card-label svg-oral"><i data-lucide="mic"></i> Versión Oral</span>
+                        <button id="btn-play-oral" class="btn-audio" onclick="playOral(event)">
+                            <i data-lucide="play" id="play-icon"></i>
+                            <span id="play-text">Escuchar</span>
+                        </button>
+                    </div>
+                    <div class="waveform" id="waveform">
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    </div>
+                    <p class="audio-text" id="oral-text">"Oigan, el servidor se cayó anoche y perdimos la base de datos. Hay que restaurar desde el backup del viernes, o sea, el más reciente que tenemos. ¿Quién se puede encargar? Porque yo hasta las seis no puedo..."</p>
+                    <p class="audio-tag">● Espontáneo · Hesitaciones · Tono coloquial</p>
+                </div>
+                <div class="audio-card">
+                    <div class="audio-card-head">
+                        <span class="audio-card-label svg-escrito"><i data-lucide="file-text"></i> Versión Escrita</span>
+                        <span class="btn-audio btn-audio-inactive"><i data-lucide="eye"></i> Solo lectura</span>
+                    </div>
+                    <div class="waveform-placeholder"></div>
+                    <p class="audio-text">Se informa que el servidor principal presentó una falla la noche del 15/01/2025, resultando en la pérdida de la base de datos de producción. Se requiere realizar la restauración desde el respaldo más reciente (viernes 12/01). Se solicita un voluntario para coordinar esta tarea.</p>
+                    <p class="audio-tag">● Planificado · Preciso · Tono formal</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <p class="section-label">Ventajas</p>
+            <div class="adv-grid">
+                <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Comunicación rápida y directa</p><p class="adv-desc">Resolver un bug en pair programming es más ágil hablando que por chat.</p></div></div>
+                <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Aclaración instantánea de dudas</p><p class="adv-desc">En clase, el alumno pregunta y el profesor responde sin demora.</p></div></div>
+                <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Transmite emociones y entonación</p><p class="adv-desc">La urgencia de un problema de producción se percibe en la voz.</p></div></div>
+                <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Ideal para brainstorming</p><p class="adv-desc">Las ideas fluyen mejor en una lluvia de ideas verbal que escribiendo.</p></div></div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <p class="section-label">Limitaciones</p>
+            <div class="adv-grid">
+                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">No deja registro</p><p class="adv-desc">Si no se graba, lo dicho en un stand-up se pierde al terminar.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Ambigüedad sin apoyo visual</p><p class="adv-desc">Decir "el punto" puede referirse a un decimal, un punto de red o un endpoint.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Dependencia de la memoria</p><p class="adv-desc">En temas complejos como álgebra relacional, recordar lo dicho es difícil.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Requiere sincronía temporal</p><p class="adv-desc">Diferencias de zona horaria en equipos remotos.</p></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================
+     DETAIL: ESCRITO
+     ========================================== -->
+<div class="detail-overlay" id="detail-escrito">
+    <div class="detail-panel">
+        <div class="detail-header">
+            <div class="detail-header-left">
+                <div class="detail-icon icon-escrito"><i data-lucide="type"></i></div>
+                <div>
+                    <h2 class="detail-title">Lenguaje Escrito</h2>
+                    <p class="detail-subtitle">Ejemplos reales, ventajas y limitaciones</p>
+                </div>
+            </div>
+            <button class="btn-close" onclick="closeDetail('escrito')"><i data-lucide="x"></i></button>
+        </div>
+
+        <div class="detail-section">
+            <p class="section-label">Ejemplo — Chat de WhatsApp</p>
+            <div class="example-block">
+                <div class="example-tag"><span class="tag-badge tag-escrito">Escrito</span> Lenguaje informal</div>
+                <div class="example-inner">
+                    <div class="chat-msg"><div class="chat-avatar avatar-blue">ON</div><div><p class="chat-meta">Onichan · 2:44 AM</p><div class="chat-bubble chat-bubble-left">Oigan alguien tiene el manual de lenguaje para la tarea de los flamencos?? No me abre el classroom 😭🔥</div></div></div>
+                    <div class="chat-msg right"><div><p class="chat-meta">Angel · 2:44 AM</p><div class="chat-bubble chat-bubble-right">Yo lo tengo aqui te lo paso 😎✨<br><strong><a href="Manual.pdf" download style="color:#fff;text-decoration:underline;">Manual.pdf</a></strong></div></div><div class="chat-avatar avatar-orange">AN</div></div>
+                    <div class="chat-msg"><div class="chat-avatar avatar-blue">ON</div><div><p class="chat-meta">Onichan · 2:44 AM</p><div class="chat-bubble chat-bubble-left">GRACIAS ME SALVASTE LA VIDA 🙏🎉</div></div></div>
+                </div>
+                            </div>
+        </div>
+
+        <div class="detail-section">
+            <p class="section-label">Ejemplo — Correo electrónico (académico formal)</p>
+            <div class="example-block">
+                <div class="example-tag"><span class="tag-badge tag-escrito">Escrito</span> Lenguaje formal</div>
+                <div class="example-inner">
+                    <div class="email-header">
+                        <p>Asunto: <strong style="opacity:1">Entrega del Proyecto Final — Sección 01</strong></p>
+                        <p>Para: eddynymattheus@luz.edu.ve</p>
+                        <p>De: jperez@luz.edu.ve</p>
+                    </div>
+                    <div class="email-body">
+                        <p>Estimada profesora Matheus,</p>
+                        <p>Por medio de la presente me permito informarle que adjunto al presente correo electrónico se encuentra el archivo PDF correspondiente al proyecto final de la asignatura Comunicación y Lenguaje, titulado "Análisis comparativo del lenguaje oral y escrito en entornos de desarrollo de software".</p>
+                        <p>Quedo a su entera disposición ante cualquier observación o corrección que estime conveniente.</p>
+                        <div class="email-firma"><strong>Atentamente,</strong><br>Juan Pérez<br>C.I. V-25.123.456 · Escuela de Computación</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <p class="section-label">Ejemplo — Foro académico (Moodle / GitHub Issues)</p>
+            <div class="example-block">
+                <div class="example-tag"><span class="tag-badge tag-escrito">Escrito</span> Semiformal</div>
+                <div class="example-inner">
+                    <div class="forum-header"><div class="chat-avatar" style="background:rgba(34,197,94,0.2);color:#22c55e;">LJ</div><div><p class="chat-meta" style="margin-bottom:0">Luis Jiménez · Hace 2 horas</p></div></div>
+                    <h4 class="forum-title">Error "Segmentation fault" al compilar en C++ — Proyecto Final</h4>
+                    <p class="forum-body">Hola compañeros, al ejecutar <code style="font-family:'Courier New',monospace;font-size:1rem;background:rgba(255,255,255,0.08);padding:0.1rem 0.4rem;border-radius:0.3rem;">make build</code> me arroja el siguiente error:</p>
+                    <pre class="forum-code">Segmentation fault (core dumped)
+  at line 147: nodo->siguiente = nuevoNodo;</pre>
+                    <p class="forum-body">Ya revisé que el puntero no sea NULL, pero sigue sin funcionar. Alguien que haya tenido este problema ¿podría orientarme?</p>
+                    <div class="forum-stats"><span><i data-lucide="message-circle"></i> 5 respuestas</span><span><i data-lucide="arrow-up"></i> 12</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <p class="section-label">Ventajas</p>
+            <div class="adv-grid">
+                <div class="adv-item"><div class="adv-icon check-escrito"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Documentación permanente</p><p class="adv-desc">Un README, un informe o un RFC quedan como referencia eterna.</p></div></div>
+                <div class="adv-item"><div class="adv-icon check-escrito"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Permite consulta posterior</p><p class="adv-desc">Un estudiante puede releer las notas de clase antes del examen.</p></div></div>
+                <div class="adv-item"><div class="adv-icon check-escrito"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Mayor precisión técnica</p><p class="adv-desc">Un snippet de código en documentación es exacto; en voz se puede malinterpretar.</p></div></div>
+                <div class="adv-item"><div class="adv-icon check-escrito"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Facilita revisión y corrección</p><p class="adv-desc">Un pull request permite revisar código línea por línea antes de fusionar.</p></div></div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <p class="section-label">Limitaciones</p>
+            <div class="adv-grid">
+                <div class="adv-item"><div class="adv-icon x-escrito"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Sin retroalimentación inmediata</p><p class="adv-desc">Un issue en GitHub puede tardar horas en recibir respuesta.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-escrito"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Se malinterpreta el tono</p><p class="adv-desc">Un "OK" en chat puede verse como aprobación, indiferencia o enfado.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-escrito"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Requiere más tiempo</p><p class="adv-desc">Redactar un correo formal toma más tiempo que decirlo en 30 segundos.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-escrito"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Exige competencia lectora</p><p class="adv-desc">Documentación técnica en inglés puede ser inaccesible.</p></div></div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <div class="conclusion-box">
+                <i data-lucide="sparkles"></i>
+                <div>
+                    <h4>Conclusión integradora</h4>
+                    <p>En el ámbito computacional, <span class="text-oral">el lenguaje oral</span> y <span class="text-escrito">el lenguaje escrito</span> no se excluyen sino que se complementan. Un equipo de desarrollo efectivo usa videollamadas para diseñar soluciones, chats para coordinación rápida, correos para comunicación formal y documentación escrita como referencia permanente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================
+     DETAIL: EVOLUCIÓN
+     ========================================== -->
+<div class="detail-overlay" id="detail-evolucion">
+    <div class="detail-panel">
+        <div class="detail-header">
+            <div class="detail-header-left">
+                <div class="detail-icon icon-evo"><i data-lucide="clock"></i></div>
+                <div>
+                    <h2 class="detail-title">Línea del Tiempo</h2>
+                    <p class="detail-subtitle">Evolución: Lenguaje oral → Escrito → Digital</p>
+                </div>
+            </div>
+            <button class="btn-close" onclick="closeDetail('evolucion')"><i data-lucide="x"></i></button>
+        </div>
+
+        <div class="timeline-legend">
+            <div class="legend-item"><div class="legend-dot red"></div><span>Era oral / transición</span></div>
+            <div class="legend-item"><div class="legend-dot blue"></div><span>Era digital</span></div>
+        </div>
+
+        <div class="detail-section">
+            <div class="timeline-vertical">
+                <div class="timeline-line"></div>
+                <div class="timeline-points">
+                    <div class="timeline-item">
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-fecha">~4.5 millones de años</div>
+                            <div class="timeline-nombre">Nacimiento del Lenguaje Vocal</div>
+                            <div class="timeline-detalles">
+                                <div class="timeline-especie">Primer lenguaje: Sonidos vocales</div>
+                                Los primeros homínidos desarrollan la capacidad de producir sonidos vocales diferenciados. Surge la comunicación básica a través de gruñidos y vocalizaciones que permiten compartir emociones y necesidades básicas.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-fecha">~1.8 millones de años</div>
+                            <div class="timeline-nombre">Lenguaje Gestual-Sonoro</div>
+                            <div class="timeline-detalles">
+                                <div class="timeline-especie">Segundo lenguaje: Comunicación multimodal</div>
+                                Nace el lenguaje combinado: gestos con las manos + sonidos rítmicos. Los humanos pueden señalar objetos mientras emiten sonidos, creando las primeras "palabras" compartidas que significan algo específico.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-fecha">~200,000 años</div>
+                            <div class="timeline-nombre">Lenguaje Simbólico</div>
+                            <div class="timeline-detalles">
+                                <div class="timeline-especie">Tercer lenguaje: Palabras con significado abstracto</div>
+                                Los humanos pueden hablar de cosas que no están presentes: el pasado, el futuro, los sueños. Nacen las primeras palabras que representan ideas, no solo objetos físicos. El lenguaje trasciende el aquí y ahora.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-fecha">~70,000 años</div>
+                            <div class="timeline-nombre">Lenguaje Estructurado</div>
+                            <div class="timeline-detalles">
+                                <div class="timeline-especie">Cuarto lenguaje: Gramática y sintaxis</div>
+                                Aparece la capacidad de combinar palabras en frases complejas. Los humanos pueden contar historias, describir procesos y crear narrativas. Nace la gramática que permite construir significados ilimitados con palabras finitas.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot dot-blue"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-fecha">~5,000 años</div>
+                            <div class="timeline-nombre">Lenguaje Escrito</div>
+                            <div class="timeline-detalles">
+                                <div class="timeline-era">Quinto lenguaje: Palabras permanentes</div>
+                                Las palabras habladas se convierten en símbolos visuales que perduran. Nace la escritura: el lenguaje puede sobrevivir a quien lo pronuncia. El conocimiento se acumula y transmite a través de generaciones sin depender de la memoria.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot dot-blue"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-fecha">Siglo XX</div>
+                            <div class="timeline-nombre">Lenguaje Digital</div>
+                            <div class="timeline-detalles">
+                                <div class="timeline-era">Sexto lenguaje: Código y algoritmos</div>
+                                Las palabras escritas se traducen a lenguaje de máquina. Nace un nuevo lenguaje que solo las computadoras entienden, pero que permite procesar, almacenar y transmitir el lenguaje humano a velocidades y distancias nunca antes imaginadas.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot-container">
+                            <div class="timeline-dot dot-blue dot-current"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-fecha">Actualidad</div>
+                            <div class="timeline-nombre">Lenguaje Conversacional Artificial</div>
+                            <div class="timeline-detalles">
+                                <div class="timeline-era">Séptimo lenguaje: Máquinas que hablan como humanos</div>
+                                Las máquinas aprenden a entender y generar lenguaje natural. Pueden mantener conversaciones, escribir textos y traducir idiomas instantáneamente. La frontera entre lenguaje humano y artificial se difumina: ahora hablamos con máquinas como si fueran personas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            </div>
+</div>
+
+<!-- POP-UP MODAL -->
+<div id="popup-modal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-head">
+            <h3 id="popup-title"></h3>
+            <button class="modal-close" id="popup-close-btn"><i data-lucide="x"></i></button>
+        </div>
+        <p class="modal-body" id="popup-content"></p>
+            </div>
+</div>
+
+<!-- TOAST -->
+<div id="audio-toast" class="toast">
+    <i data-lucide="alert-triangle"></i>
+    <span id="toast-msg"></span>
+</div>
+
+<script>
+    lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
+
+    // === DETAIL PANELS ===
+    function openDetail(id) {
+        document.getElementById('detail-' + id).classList.add('open');
+        document.body.style.overflow = 'hidden';
+        lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
+    }
+    function closeDetail(id) {
+        document.getElementById('detail-' + id).classList.remove('open');
+        document.body.style.overflow = '';
+        if (id === 'oral' && isPlaying) { window.speechSynthesis.cancel(); stopPlaying(); }
+    }
+    document.querySelectorAll('.detail-overlay').forEach(overlay => {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+                if (isPlaying) { window.speechSynthesis.cancel(); stopPlaying(); }
+            }
+        });
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.detail-overlay.open').forEach(o => o.classList.remove('open'));
+            document.getElementById('popup-modal').classList.remove('show');
+            document.body.style.overflow = '';
+            if (isPlaying) { window.speechSynthesis.cancel(); stopPlaying(); }
+        }
+    });
+
+    // === POP-UPS ===
+    const modal = document.getElementById('popup-modal');
+    document.querySelectorAll('.popup-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('popup-title').textContent = btn.dataset.title;
+            document.getElementById('popup-content').textContent = btn.dataset.content;
+            modal.classList.add('show');
+        });
+    });
+    document.getElementById('popup-close-btn').addEventListener('click', () => modal.classList.remove('show'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
+
+    // === AUDIO ===
+    let isPlaying = false;
+    function playOral(e) {
+        if (e) e.stopPropagation();
+        const audio = new Audio('audio/oral.mp3');
+        if (isPlaying) { audio.pause(); stopPlaying(); return; }
+        audio.play();
+        isPlaying = true;
+        startPlaying();
+        audio.onended = () => stopPlaying();
+        audio.onerror = () => { stopPlaying(); showToast('Error al cargar el audio'); };
+    }
+    function startPlaying() {
+        isPlaying = true;
+        document.getElementById('play-text').textContent = 'Detener';
+        document.getElementById('play-icon').setAttribute('data-lucide', 'pause');
+        lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
+        document.querySelectorAll('#waveform .wave-bar').forEach(b => b.classList.add('activo'));
+        document.getElementById('oral-text').classList.add('reproduciendo');
+    }
+    function stopPlaying() {
+        isPlaying = false;
+        document.getElementById('play-text').textContent = 'Escuchar';
+        document.getElementById('play-icon').setAttribute('data-lucide', 'play');
+        lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
+        document.querySelectorAll('#waveform .wave-bar').forEach(b => b.classList.remove('activo'));
+        document.getElementById('oral-text').classList.remove('reproduciendo');
+    }
+    
+    let isVideoPlaying = false;
+    function playVideo(e) {
+        if (e) e.stopPropagation();
+        const audio = new Audio('audio/videollamada.mp3');
+        if (isVideoPlaying) { audio.pause(); stopVideoPlaying(); return; }
+        audio.play();
+        isVideoPlaying = true;
+        startVideoPlaying();
+        audio.onended = () => stopVideoPlaying();
+        audio.onerror = () => { stopVideoPlaying(); showToast('Error al cargar el audio'); };
+    }
+    function startVideoPlaying() {
+        isVideoPlaying = true;
+        document.getElementById('play-video-text').textContent = 'Detener';
+        document.getElementById('play-video-icon').setAttribute('data-lucide', 'pause');
+        lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
+        document.querySelectorAll('.wave-mini-bar').forEach(b => b.classList.add('activo'));
+    }
+    function stopVideoPlaying() {
+        isVideoPlaying = false;
+        document.getElementById('play-video-text').textContent = 'Escuchar';
+        document.getElementById('play-video-icon').setAttribute('data-lucide', 'play');
+        lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
+        document.querySelectorAll('.wave-mini-bar').forEach(b => b.classList.remove('activo'));
+    }
+    
+    if ('speechSynthesis' in window) { speechSynthesis.onvoiceschanged = () => {}; speechSynthesis.getVoices(); }
+
+    // === TOAST ===
+    function showToast(msg) {
+        const t = document.getElementById('audio-toast');
+        document.getElementById('toast-msg').textContent = msg;
+        t.classList.add('visible');
+        setTimeout(() => t.classList.remove('visible'), 4000);
+    }
+</script>
+</body>
+</html>

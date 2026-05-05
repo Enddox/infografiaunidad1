@@ -7,9 +7,6 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* ============================================
-           CSS PROPORCIONADO (sin modificaciones)
-           ============================================ */
         html, body {
             font-size: 62.5%;
         }
@@ -145,9 +142,6 @@
             }
         }
 
-        /* ============================================
-           CSS COMPLEMENTARIO
-           ============================================ */
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -167,7 +161,6 @@
             gap: 4rem;
         }
 
-        /* HEADER */
         .header-institucional {
             text-align: center;
             padding: 1rem 0;
@@ -184,7 +177,6 @@
             margin-top: 0.3rem;
         }
 
-        /* HERO MINI */
         .hero-mini {
             text-align: center;
             padding: 1rem 0 0;
@@ -217,9 +209,6 @@
             gap: 0.5rem;
         }
 
-        /* ========================================
-           CUADRO COMPARATIVO
-           ======================================== */
         .comparativo-section {
             width: 100%;
         }
@@ -298,7 +287,6 @@
             margin-top: 0.1rem;
         }
 
-        /* Fila comparativa */
         .comp-row {
             display: flex;
             align-items: stretch;
@@ -362,7 +350,6 @@
             position: relative;
         }
 
-        /* Ejemplos rápidos dentro del comparativo */
         .comp-ejemplos {
             padding: 1rem 1.5rem 1.2rem;
             border-top: 1px solid rgba(255,255,255,0.06);
@@ -391,9 +378,6 @@
         .comp-ejemplo-tag.tag-o { border-color: rgba(249,115,22,0.15); }
         .comp-ejemplo-tag.tag-e { border-color: rgba(59,130,246,0.15); }
 
-        /* ========================================
-           DETAIL OVERLAY
-           ======================================== */
         .detail-overlay {
             position: fixed;
             inset: 0;
@@ -481,7 +465,6 @@
         }
         .btn-close svg { width: 1.8rem; height: 1.8rem; }
 
-        /* DETAIL SECTIONS */
         .detail-section { margin-bottom: 2.5rem; }
         .detail-section:last-child { margin-bottom: 0; }
         .section-label {
@@ -493,7 +476,6 @@
             margin-bottom: 1rem;
         }
 
-        /* CHARACTERISTIC ITEMS (inside detail) */
         .char-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -526,7 +508,6 @@
         .char-name { font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
         .char-desc { font-size: 1.1rem; opacity: 0.4; margin-top: 0.2rem; }
 
-        /* EXAMPLE BLOCKS */
         .example-block {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
@@ -565,7 +546,6 @@
         }
         .example-note svg { width: 1.2rem; height: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
 
-        /* CHAT */
         .chat-msg { display: flex; gap: 0.8rem; margin-bottom: 0.8rem; }
         .chat-msg:last-child { margin-bottom: 0; }
         .chat-msg.right { flex-direction: row-reverse; }
@@ -600,7 +580,6 @@
             border-radius: 0.3rem;
         }
 
-        /* EMAIL */
         .email-header {
             font-size: 1.1rem;
             line-height: 1.6;
@@ -619,7 +598,6 @@
             opacity: 0.5;
         }
 
-        /* TRANSCRIPT */
         .transcript-indicator {
             display: flex;
             align-items: center;
@@ -648,7 +626,6 @@
         .transcript-text p { margin-bottom: 0.8rem; }
         .speaker { color: #f97316; font-weight: 600; }
 
-        /* FORUM */
         .forum-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; }
         .forum-title { font-size: 1.3rem; font-weight: 600; line-height: 1.4; }
         .forum-body { font-size: 1.15rem; line-height: 1.6; opacity: 0.65; margin-bottom: 0.8rem; }
@@ -667,7 +644,6 @@
         .forum-stats span { display: flex; align-items: center; gap: 0.3rem; }
         .forum-stats svg { width: 1.2rem; height: 1.2rem; }
 
-        /* AUDIO DEMO */
         .audio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
         .audio-card {
             background: rgba(255, 255, 255, 0.03);
@@ -763,7 +739,6 @@
         .audio-text.reproduciendo { color: #f97316; opacity: 0.9; }
         .audio-tag { font-size: 0.9rem; opacity: 0.3; margin-top: 0.6rem; }
 
-        /* ADVANTAGE / LIMITATION ITEMS */
         .adv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
         .adv-item {
             display: flex;
@@ -783,7 +758,6 @@
         .adv-name { font-size: 1.15rem; font-weight: 600; line-height: 1.3; }
         .adv-desc { font-size: 1rem; opacity: 0.4; margin-top: 0.15rem; line-height: 1.4; }
 
-        /* CONCLUSION */
         .conclusion-box {
             background: rgba(168, 85, 247, 0.06);
             border: 1px solid rgba(168, 85, 247, 0.15);
@@ -799,7 +773,6 @@
         .text-oral { color: #f97316; font-weight: 600; }
         .text-escrito { color: #3b82f6; font-weight: 600; }
 
-        /* VOICE NOTE STYLES */
         .voice-note {
             display: flex;
             align-items: center;
@@ -890,7 +863,6 @@
             font-size: 0.85rem;
         }
 
-        /* VERTICAL TIMELINE */
         .timeline-vertical {
             display: flex;
             gap: 2rem;
@@ -1008,7 +980,6 @@
         .legend-dot.red { background: #ef4444; }
         .legend-dot.blue { background: #3b82f6; }
 
-        /* INSIGHT CARDS */
         .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
         .insight-card {
             background: rgba(255, 255, 255, 0.03);
@@ -1031,7 +1002,6 @@
         .insight-card h4 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
         .insight-card p { font-size: 1.05rem; opacity: 0.45; line-height: 1.5; }
 
-        /* POPUP MODAL */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -1095,7 +1065,6 @@
         }
         .modal-foot svg { width: 1rem; height: 1rem; }
 
-        /* TOAST */
         .toast {
             position: fixed;
             bottom: 2rem;
@@ -1123,7 +1092,6 @@
         }
         .toast svg { width: 1.4rem; height: 1.4rem; color: #eab308; flex-shrink: 0; }
 
-        /* FOOTER */
         .footer {
             text-align: center;
             padding: 2rem 0 1rem;
@@ -1132,7 +1100,6 @@
             line-height: 1.6;
         }
 
-        /* RESPONSIVE */
         @media (max-width: 900px) {
             .cards {
                 grid-template-columns: 1fr;
@@ -1158,13 +1125,11 @@
 <div class="page-wrapper">
 
     
-    <!-- HERO -->
     <div class="hero-mini">
         <h1><span class="oral-text">Lenguaje Oral</span> y <span class="escrito-text">Lenguaje Escrito</span></h1>
         <p class="hero-sub">en el ámbito <strong>académico</strong> y <strong>tecnológico</strong></p>
             </div>
 
-    <!-- CARDS -->
     <div class="cards">
         <div class="previewCard" onclick="openDetail('oral')">
             <img class="backdrop" src="oral.jpg" alt="Lenguaje Oral">
@@ -1195,16 +1160,12 @@
         </div>
     </div>
 
-    <!-- ==========================================
-         CUADRO COMPARATIVO (visible directo)
-         ========================================== -->
     <section class="comparativo-section">
         <h2 class="comparativo-title">Cuadro Comparativo</h2>
 
         <div class="comparativo-grid-wrap">
             <div class="comparativo-grid">
 
-                <!-- COLUMNA ORAL -->
                 <div class="comparativo-col col-oral">
                     <div class="comparativo-col-head col-head-oral">
                         <div class="col-icon ico-oral"><i data-lucide="mic"></i></div>
@@ -1282,7 +1243,6 @@
                     </div>
                 </div>
 
-                <!-- COLUMNA ESCRITO -->
                 <div class="comparativo-col col-escrito">
                     <div class="comparativo-col-head col-head-escrito">
                         <div class="col-icon ico-escrito"><i data-lucide="type"></i></div>
@@ -1366,9 +1326,6 @@
 
     </div>
 
-<!-- ==========================================
-     DETAIL: ORAL
-     ========================================== -->
 <div class="detail-overlay" id="detail-oral">
     <div class="detail-panel">
         <div class="detail-header">
@@ -1452,9 +1409,6 @@
     </div>
 </div>
 
-<!-- ==========================================
-     DETAIL: ESCRITO
-     ========================================== -->
 <div class="detail-overlay" id="detail-escrito">
     <div class="detail-panel">
         <div class="detail-header">
@@ -1524,9 +1478,6 @@
             </div>
 </div>
 
-<!-- ==========================================
-     DETAIL: EVOLUCIÓN
-     ========================================== -->
 <div class="detail-overlay" id="detail-evolucion">
     <div class="detail-panel">
         <div class="detail-header">
@@ -1647,7 +1598,6 @@
             </div>
 </div>
 
-<!-- POP-UP MODAL -->
 <div id="popup-modal" class="modal-overlay">
     <div class="modal-box">
         <div class="modal-head">
@@ -1658,7 +1608,6 @@
             </div>
 </div>
 
-<!-- TOAST -->
 <div id="audio-toast" class="toast">
     <i data-lucide="alert-triangle"></i>
     <span id="toast-msg"></span>
@@ -1667,7 +1616,6 @@
 <script>
     lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
 
-    // === DETAIL PANELS ===
     function openDetail(id) {
         document.getElementById('detail-' + id).classList.add('open');
         document.body.style.overflow = 'hidden';
@@ -1696,7 +1644,6 @@
         }
     });
 
-    // === POP-UPS ===
     const modal = document.getElementById('popup-modal');
     document.querySelectorAll('.popup-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -1709,7 +1656,6 @@
     document.getElementById('popup-close-btn').addEventListener('click', () => modal.classList.remove('show'));
     modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('show'); });
 
-    // === AUDIO ===
     let isPlaying = false;
     function playOral(e) {
         if (e) e.stopPropagation();
@@ -1764,12 +1710,10 @@
         document.querySelectorAll('.wave-mini-bar').forEach(b => b.classList.remove('activo'));
     }
     
-    // === VOICE NOTE FUNCTIONALITY ===
     let currentVoiceNote = null;
     let isVoiceNotePlaying = false;
     let currentAudio = null;
     
-    // Initialize audio and load duration on page load
     document.addEventListener('DOMContentLoaded', function() {
         const voiceNoteElement = document.querySelector('.voice-note');
         if (voiceNoteElement) {
@@ -1816,20 +1760,16 @@
         const playIcon = voiceNoteElement.querySelector('.voice-play-icon');
         const voiceBars = voiceNoteElement.querySelectorAll('.voice-bar');
         
-        // Stop any currently playing voice note
         if (currentVoiceNote && currentVoiceNote !== voiceNoteElement) {
             stopVoiceNote(currentVoiceNote);
         }
         
         if (isVoiceNotePlaying && currentVoiceNote === voiceNoteElement) {
-            // Pause current voice note
             pauseVoiceNote(voiceNoteElement);
         } else {
-            // Play voice note
             currentVoiceNote = voiceNoteElement;
             isVoiceNotePlaying = true;
             
-            // Create audio element if not exists
             if (!currentAudio) {
                 currentAudio = new Audio('audio/oral.mp3');
                 currentAudio.addEventListener('timeupdate', function() {
@@ -1847,14 +1787,11 @@
                 });
             }
             
-            // Change icon to pause
             playIcon.setAttribute('data-lucide', 'pause');
             lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
             
-            // Animate voice bars
             voiceBars.forEach(bar => bar.classList.add('voice-active'));
             
-            // Play audio
             currentAudio.play();
         }
     }
@@ -1863,14 +1800,11 @@
         const playIcon = voiceNoteElement.querySelector('.voice-play-icon');
         const voiceBars = voiceNoteElement.querySelectorAll('.voice-bar');
         
-        // Change icon back to play
         playIcon.setAttribute('data-lucide', 'play');
         lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
         
-        // Stop animation
         voiceBars.forEach(bar => bar.classList.remove('voice-active'));
         
-        // Pause audio
         if (currentAudio) {
             currentAudio.pause();
         }
@@ -1882,20 +1816,16 @@
         const playIcon = voiceNoteElement.querySelector('.voice-play-icon');
         const voiceBars = voiceNoteElement.querySelectorAll('.voice-bar');
         
-        // Change icon back to play
         playIcon.setAttribute('data-lucide', 'play');
         lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
         
-        // Stop animation
         voiceBars.forEach(bar => bar.classList.remove('voice-active'));
         
-        // Stop and reset audio
         if (currentAudio) {
             currentAudio.pause();
             currentAudio.currentTime = 0;
         }
         
-        // Reset to show total duration
         const totalDuration = parseInt(voiceNoteElement.dataset.totalDuration) || 0;
         showTotalDuration(voiceNoteElement, totalDuration);
         
@@ -1905,7 +1835,6 @@
 
     if ('speechSynthesis' in window) { speechSynthesis.onvoiceschanged = () => {}; speechSynthesis.getVoices(); }
 
-    // === TOAST ===
     function showToast(msg) {
         const t = document.getElementById('audio-toast');
         document.getElementById('toast-msg').textContent = msg;

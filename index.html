@@ -13,10 +13,22 @@
 
         body {
             min-height: 100vh;
-            background: #000;
+            background: url('background.jpeg') center/cover no-repeat fixed;
+            background-color: #000;
             color: #fff;
             display: grid;
             place-items: center;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
         }
 
         .cards {

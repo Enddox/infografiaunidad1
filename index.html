@@ -799,6 +799,97 @@
         .text-oral { color: #f97316; font-weight: 600; }
         .text-escrito { color: #3b82f6; font-weight: 600; }
 
+        /* VOICE NOTE STYLES */
+        .voice-note {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .voice-note:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .voice-note-wave {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            height: 2rem;
+        }
+        .voice-bar {
+            width: 0.3rem;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 0.15rem;
+            transition: all 0.3s ease;
+        }
+        .voice-bar:nth-child(1) { height: 0.5rem; }
+        .voice-bar:nth-child(2) { height: 0.8rem; }
+        .voice-bar:nth-child(3) { height: 1.2rem; }
+        .voice-bar:nth-child(4) { height: 0.9rem; }
+        .voice-bar:nth-child(5) { height: 1.5rem; }
+        .voice-bar:nth-child(6) { height: 1.1rem; }
+        .voice-bar:nth-child(7) { height: 1.3rem; }
+        .voice-bar:nth-child(8) { height: 0.7rem; }
+        .voice-bar:nth-child(9) { height: 1.4rem; }
+        .voice-bar:nth-child(10) { height: 1rem; }
+        .voice-bar:nth-child(11) { height: 0.6rem; }
+        .voice-bar:nth-child(12) { height: 1.2rem; }
+        .voice-bar:nth-child(13) { height: 0.9rem; }
+        .voice-bar:nth-child(14) { height: 1.1rem; }
+        .voice-bar:nth-child(15) { height: 0.8rem; }
+        .voice-bar:nth-child(16) { height: 1.3rem; }
+        .voice-bar:nth-child(17) { height: 1rem; }
+        .voice-bar:nth-child(18) { height: 0.7rem; }
+        .voice-bar:nth-child(19) { height: 1.2rem; }
+        .voice-bar:nth-child(20) { height: 0.9rem; }
+        .voice-bar.voice-active {
+            background: #3b82f6;
+            animation: voiceWave 0.8s ease-in-out infinite;
+        }
+        .voice-bar.voice-active:nth-child(1) { animation-delay: 0s; }
+        .voice-bar.voice-active:nth-child(2) { animation-delay: 0.1s; }
+        .voice-bar.voice-active:nth-child(3) { animation-delay: 0.2s; }
+        .voice-bar.voice-active:nth-child(4) { animation-delay: 0.3s; }
+        .voice-bar.voice-active:nth-child(5) { animation-delay: 0.4s; }
+        .voice-bar.voice-active:nth-child(6) { animation-delay: 0.5s; }
+        .voice-bar.voice-active:nth-child(7) { animation-delay: 0.6s; }
+        .voice-bar.voice-active:nth-child(8) { animation-delay: 0.7s; }
+        .voice-bar.voice-active:nth-child(9) { animation-delay: 0.8s; }
+        .voice-bar.voice-active:nth-child(10) { animation-delay: 0.9s; }
+        .voice-bar.voice-active:nth-child(11) { animation-delay: 1s; }
+        .voice-bar.voice-active:nth-child(12) { animation-delay: 1.1s; }
+        .voice-bar.voice-active:nth-child(13) { animation-delay: 1.2s; }
+        .voice-bar.voice-active:nth-child(14) { animation-delay: 1.3s; }
+        .voice-bar.voice-active:nth-child(15) { animation-delay: 1.4s; }
+        .voice-bar.voice-active:nth-child(16) { animation-delay: 1.5s; }
+        .voice-bar.voice-active:nth-child(17) { animation-delay: 1.6s; }
+        .voice-bar.voice-active:nth-child(18) { animation-delay: 1.7s; }
+        .voice-bar.voice-active:nth-child(19) { animation-delay: 1.8s; }
+        .voice-bar.voice-active:nth-child(20) { animation-delay: 1.9s; }
+        @keyframes voiceWave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+        }
+        .voice-note-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        .voice-play-icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .voice-duration {
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+
         /* VERTICAL TIMELINE */
         .timeline-vertical {
             display: flex;
@@ -1186,7 +1277,7 @@
                         <p class="comp-ejemplos-label">Ejemplos en computación</p>
                         <span class="comp-ejemplo-tag tag-o"><i data-lucide="video"></i> Videollamadas</span>
                         <span class="comp-ejemplo-tag tag-o"><i data-lucide="presentation"></i> Clases</span>
-                        <span class="comp-ejemplo-tag tag-o"><i data-lucide="users"></i> Stand-ups</span>
+                        <span class="comp-ejemplo-tag tag-o"><i data-lucide="users"></i> Reuniones</span>
                         <span class="comp-ejemplo-tag tag-o"><i data-lucide="phone"></i> Llamadas</span>
                     </div>
                 </div>
@@ -1292,64 +1383,59 @@
         </div>
 
         <div class="detail-section">
-            <p class="section-label">Ejemplo real — Videollamada de equipo (Zoom / Meet)</p>
+            <p class="section-label">Ejemplo real — Clase de Algoritmos y Programación</p>
             <div class="example-block">
                 <div class="example-tag"><span class="tag-badge tag-oral">Oral</span> Transcripción automática</div>
                 <div class="example-inner">
                     <div class="transcript-indicator">
                         <div class="wave-mini"><div class="wave-mini-bar"></div><div class="wave-mini-bar"></div><div class="wave-mini-bar"></div><div class="wave-mini-bar"></div><div class="wave-mini-bar"></div></div>
                         <span>Transcripción en vivo</span>
-                        <button id="btn-play-video" class="btn-audio btn-audio-small" onclick="playVideo(event)" style="margin-left: auto;">
-                            <i data-lucide="play" id="play-video-icon"></i>
-                            <span id="play-video-text">Escuchar</span>
-                        </button>
                     </div>
                     <div class="transcript-text">
-                        <p><span class="speaker">Carlos:</span> "Oigan, oigan... ¿ya vieron lo que pasó con el servidor? Se cayó como a las tres de la mañana y... bueno, todavía no sabemos bien qué pasó, pero creo que fue el deploy."</p>
-                        <p><span class="speaker">María:</span> "¿En serio? Yo estaba trabajando en el frontend y de repente ya no conectaba... o sea, pensé que era mi internet."</p>
-                        <p><span class="speaker">Carlos:</span> "No, no, fue el server. Ya le escribí al profe por correo, pero todavía no responde. ¿Quién puede revisar los logs?"</p>
+                        <p><span class="speaker">Estudiante:</span> "Profesor, disculpe... ¿podría explicarme de nuevo qué es exactamente un compilador? Es que... bueno, sé que convierte código a máquina pero no entiendo bien el proceso."</p>
+                        <p><span class="speaker">Profesor:</span> "¡Excelente pregunta! Piensen en un compilador como un traductor muy inteligente. Imaginen que escriben un libro en español y necesitan que alguien lo traduzca perfectamente al inglés para que una máquina que solo entiende inglés pueda leerlo. El compilador hace eso: traduce su código humano (C++, Java, etc.) a lenguaje máquina (ceros y unos)."</p>
+                        <p><span class="speaker">Estudiante:</span> "¡Ah! Ya entiendo... entonces primero revisa que no haya errores en mi código y luego lo traduce paso por paso a lo que el procesador puede entender."</p>
+                        <p><span class="speaker">Profesor:</span> "¡Exactamente! Y lo más importante es que optimiza el código, haciéndolo más eficiente de lo que nosotros escribiríamos directamente. Es como tener un traductor que no solo traduce sino que mejora el texto original."</p>
                     </div>
                 </div>
-                <div class="example-note"><i data-lucide="lightbulb"></i>Hesitaciones ("o sea", "bueno"), oraciones incompletas, repeticiones — rasgos típicos del lenguaje oral.</div>
+                <div class="example-note"><i data-lucide="lightbulb"></i>Uso de analogías concretas ("traductor inteligente"), retroalimentación inmediata y clarificación de conceptos complejos — ventajas del lenguaje oral en la enseñanza.</div>
             </div>
         </div>
 
         <div class="detail-section">
-            <p class="section-label">Demo interactivo — Oral vs. Escrito</p>
-            <div class="audio-grid">
-                <div class="audio-card">
-                    <div class="audio-card-head">
-                        <span class="audio-card-label svg-oral"><i data-lucide="mic"></i> Versión Oral</span>
-                        <button id="btn-play-oral" class="btn-audio" onclick="playOral(event)">
-                            <i data-lucide="play" id="play-icon"></i>
-                            <span id="play-text">Escuchar</span>
-                        </button>
-                    </div>
-                    <div class="waveform" id="waveform">
-                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-                    </div>
-                    <p class="audio-text" id="oral-text">"Oigan, el servidor se cayó anoche y perdimos la base de datos. Hay que restaurar desde el backup del viernes, o sea, el más reciente que tenemos. ¿Quién se puede encargar? Porque yo hasta las seis no puedo..."</p>
-                    <p class="audio-tag">● Espontáneo · Hesitaciones · Tono coloquial</p>
+            <p class="section-label">Ejemplo — Nota de voz de WhatsApp</p>
+            <div class="example-block">
+                <div class="example-tag"><span class="tag-badge tag-oral">Oral</span> Mensaje de voz</div>
+                <div class="example-inner">
+                    <div class="chat-msg"><div class="chat-avatar avatar-blue">ON</div><div><p class="chat-meta">Onichan · 3:15 PM</p><div class="chat-bubble chat-bubble-left">
+                        <div class="voice-note" onclick="playVoiceNote(this)">
+                            <div class="voice-note-wave">
+                                <div class="voice-bar"></div><div class="voice-bar"></div><div class="voice-bar"></div>
+                                <div class="voice-bar"></div><div class="voice-bar"></div><div class="voice-bar"></div>
+                                <div class="voice-bar"></div><div class="voice-bar"></div><div class="voice-bar"></div>
+                                <div class="voice-bar"></div><div class="voice-bar"></div><div class="voice-bar"></div>
+                                <div class="voice-bar"></div><div class="voice-bar"></div><div class="voice-bar"></div>
+                                <div class="voice-bar"></div><div class="voice-bar"></div><div class="voice-bar"></div>
+                                <div class="voice-bar"></div><div class="voice-bar"></div>
+                            </div>
+                            <div class="voice-note-info">
+                                <i data-lucide="play" class="voice-play-icon"></i>
+                                <span class="voice-duration">0:24</span>
+                            </div>
+                        </div>
+                    </div></div></div>
+                    <div class="chat-msg right"><div><p class="chat-meta">Pomni · 3:16 PM</p><div class="chat-bubble chat-bubble-right">Sí, tenemos clase mañana. El profesor dijo el miércoles pasado que tendriamos algoritmos y programación los martes y miércoles.</div></div><div class="chat-avatar avatar-orange">PO</div></div>
                 </div>
-                <div class="audio-card">
-                    <div class="audio-card-head">
-                        <span class="audio-card-label svg-escrito"><i data-lucide="file-text"></i> Versión Escrita</span>
-                        <span class="btn-audio btn-audio-inactive"><i data-lucide="eye"></i> Solo lectura</span>
-                    </div>
-                    <div class="waveform-placeholder"></div>
-                    <p class="audio-text">Se informa que el servidor principal presentó una falla la noche del 15/01/2025, resultando en la pérdida de la base de datos de producción. Se requiere realizar la restauración desde el respaldo más reciente (viernes 12/01). Se solicita un voluntario para coordinar esta tarea.</p>
-                    <p class="audio-tag">● Planificado · Preciso · Tono formal</p>
-                </div>
+                <div class="example-note"><i data-lucide="lightbulb"></i>Las notas de voz permiten comunicación rápida con entonación y emociones, combinando la espontaneidad del lenguaje oral con la conveniencia del mensaje.</div>
             </div>
         </div>
 
         <div class="detail-section">
             <p class="section-label">Ventajas</p>
             <div class="adv-grid">
-                <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Comunicación rápida y directa</p><p class="adv-desc">Resolver un bug en pair programming es más ágil hablando que por chat.</p></div></div>
+                <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Comunicación rápida y directa</p><p class="adv-desc">Resolver un problema es más ágil hablando que por chat.</p></div></div>
                 <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Aclaración instantánea de dudas</p><p class="adv-desc">En clase, el alumno pregunta y el profesor responde sin demora.</p></div></div>
-                <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Transmite emociones y entonación</p><p class="adv-desc">La urgencia de un problema de producción se percibe en la voz.</p></div></div>
+                <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Transmite emociones y entonación</p><p class="adv-desc">La urgencia de un problema se percibe en la voz.</p></div></div>
                 <div class="adv-item"><div class="adv-icon check-oral"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Ideal para brainstorming</p><p class="adv-desc">Las ideas fluyen mejor en una lluvia de ideas verbal que escribiendo.</p></div></div>
             </div>
         </div>
@@ -1357,10 +1443,10 @@
         <div class="detail-section">
             <p class="section-label">Limitaciones</p>
             <div class="adv-grid">
-                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">No deja registro</p><p class="adv-desc">Si no se graba, lo dicho en un stand-up se pierde al terminar.</p></div></div>
-                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Ambigüedad sin apoyo visual</p><p class="adv-desc">Decir "el punto" puede referirse a un decimal, un punto de red o un endpoint.</p></div></div>
-                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Dependencia de la memoria</p><p class="adv-desc">En temas complejos como álgebra relacional, recordar lo dicho es difícil.</p></div></div>
-                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Requiere sincronía temporal</p><p class="adv-desc">Diferencias de zona horaria en equipos remotos.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">No deja registro</p><p class="adv-desc">Si no se graba, lo dicho en una clase se pierde al terminar.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Ambigüedad sin apoyo visual</p><p class="adv-desc">Decir "ahora" puede significar en este momento o más tarde sin contexto claro.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Dependencia de la memoria</p><p class="adv-desc">En temas complejos como matemáticas en general, recordar lo dicho es difícil.</p></div></div>
+                <div class="adv-item"><div class="adv-icon x-oral"><i data-lucide="x-circle"></i></div><div><p class="adv-name">Requiere sincronía temporal</p><p class="adv-desc">Coordinar horarios para una llamada entre diferentes países es complicado.</p></div></div>
             </div>
         </div>
     </div>
@@ -1400,40 +1486,25 @@
                 <div class="example-tag"><span class="tag-badge tag-escrito">Escrito</span> Lenguaje formal</div>
                 <div class="example-inner">
                     <div class="email-header">
-                        <p>Asunto: <strong style="opacity:1">Entrega del Proyecto Final — Sección 01</strong></p>
+                        <p>Asunto: <strong style="opacity:1">Entrega del Proyecto Final — Comunicación y Lenguaje</strong></p>
                         <p>Para: eddynymattheus@luz.edu.ve</p>
-                        <p>De: jperez@luz.edu.ve</p>
+                        <p>De: arios@luz.edu.ve</p>
                     </div>
                     <div class="email-body">
                         <p>Estimada profesora Matheus,</p>
-                        <p>Por medio de la presente me permito informarle que adjunto al presente correo electrónico se encuentra el archivo PDF correspondiente al proyecto final de la asignatura Comunicación y Lenguaje, titulado "Análisis comparativo del lenguaje oral y escrito en entornos de desarrollo de software".</p>
-                        <p>Quedo a su entera disposición ante cualquier observación o corrección que estime conveniente.</p>
-                        <div class="email-firma"><strong>Atentamente,</strong><br>Juan Pérez<br>C.I. V-25.123.456 · Escuela de Computación</div>
+                        <p>Por medio de la presente me permito informarle que he completado el proyecto final de la unidad I de Comunicación y Lenguaje. El trabajo está disponible en línea a través del siguiente enlace:</p>
+                        <p><strong style="opacity:1"><a href="https://enddox.github.io/infografiaunidad1" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;">https://enddox.github.io/infografiaunidad1</a></strong></p>
+                        <div class="email-firma"><strong>Atentamente,</strong><br>Alejandro Ríos<br>C.I. V-27.XXX.XXX · FEC</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="detail-section">
-            <p class="section-label">Ejemplo — Foro académico (Moodle / GitHub Issues)</p>
-            <div class="example-block">
-                <div class="example-tag"><span class="tag-badge tag-escrito">Escrito</span> Semiformal</div>
-                <div class="example-inner">
-                    <div class="forum-header"><div class="chat-avatar" style="background:rgba(34,197,94,0.2);color:#22c55e;">LJ</div><div><p class="chat-meta" style="margin-bottom:0">Luis Jiménez · Hace 2 horas</p></div></div>
-                    <h4 class="forum-title">Error "Segmentation fault" al compilar en C++ — Proyecto Final</h4>
-                    <p class="forum-body">Hola compañeros, al ejecutar <code style="font-family:'Courier New',monospace;font-size:1rem;background:rgba(255,255,255,0.08);padding:0.1rem 0.4rem;border-radius:0.3rem;">make build</code> me arroja el siguiente error:</p>
-                    <pre class="forum-code">Segmentation fault (core dumped)
-  at line 147: nodo->siguiente = nuevoNodo;</pre>
-                    <p class="forum-body">Ya revisé que el puntero no sea NULL, pero sigue sin funcionar. Alguien que haya tenido este problema ¿podría orientarme?</p>
-                    <div class="forum-stats"><span><i data-lucide="message-circle"></i> 5 respuestas</span><span><i data-lucide="arrow-up"></i> 12</span></div>
-                </div>
-            </div>
-        </div>
-
+        
         <div class="detail-section">
             <p class="section-label">Ventajas</p>
             <div class="adv-grid">
-                <div class="adv-item"><div class="adv-icon check-escrito"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Documentación permanente</p><p class="adv-desc">Un README, un informe o un RFC quedan como referencia eterna.</p></div></div>
+                <div class="adv-item"><div class="adv-icon check-escrito"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Documentación permanente</p><p class="adv-desc">Un README o un informe quedan como referencia eterna.</p></div></div>
                 <div class="adv-item"><div class="adv-icon check-escrito"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Permite consulta posterior</p><p class="adv-desc">Un estudiante puede releer las notas de clase antes del examen.</p></div></div>
                 <div class="adv-item"><div class="adv-icon check-escrito"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Mayor precisión técnica</p><p class="adv-desc">Un snippet de código en documentación es exacto; en voz se puede malinterpretar.</p></div></div>
                 <div class="adv-item"><div class="adv-icon check-escrito"><i data-lucide="check-circle-2"></i></div><div><p class="adv-name">Facilita revisión y corrección</p><p class="adv-desc">Un pull request permite revisar código línea por línea antes de fusionar.</p></div></div>
@@ -1450,16 +1521,7 @@
             </div>
         </div>
 
-        <div class="detail-section">
-            <div class="conclusion-box">
-                <i data-lucide="sparkles"></i>
-                <div>
-                    <h4>Conclusión integradora</h4>
-                    <p>En el ámbito computacional, <span class="text-oral">el lenguaje oral</span> y <span class="text-escrito">el lenguaje escrito</span> no se excluyen sino que se complementan. Un equipo de desarrollo efectivo usa videollamadas para diseñar soluciones, chats para coordinación rápida, correos para comunicación formal y documentación escrita como referencia permanente.</p>
-                </div>
             </div>
-        </div>
-    </div>
 </div>
 
 <!-- ==========================================
@@ -1702,6 +1764,145 @@
         document.querySelectorAll('.wave-mini-bar').forEach(b => b.classList.remove('activo'));
     }
     
+    // === VOICE NOTE FUNCTIONALITY ===
+    let currentVoiceNote = null;
+    let isVoiceNotePlaying = false;
+    let currentAudio = null;
+    
+    // Initialize audio and load duration on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const voiceNoteElement = document.querySelector('.voice-note');
+        if (voiceNoteElement) {
+            const audio = new Audio('audio/oral.mp3');
+            audio.addEventListener('loadedmetadata', function() {
+                const audioDuration = Math.floor(audio.duration);
+                voiceNoteElement.dataset.totalDuration = audioDuration;
+                showTotalDuration(voiceNoteElement, audioDuration);
+            });
+            audio.addEventListener('error', function() {
+                voiceNoteElement.querySelector('.voice-duration').textContent = '0:00';
+            });
+            audio.load();
+        }
+    });
+    
+    function showTotalDuration(voiceNoteElement, totalDuration) {
+        const duration = voiceNoteElement.querySelector('.voice-duration');
+        const totalMinutes = Math.floor(totalDuration / 60);
+        const totalSeconds = totalDuration % 60;
+        
+        if (totalMinutes > 0) {
+            duration.textContent = `${totalMinutes}:${totalSeconds.toString().padStart(2, '0')}`;
+        } else {
+            duration.textContent = `0:${totalSeconds.toString().padStart(2, '0')}`;
+        }
+    }
+    
+    function showCurrentTime(voiceNoteElement, currentTime) {
+        const duration = voiceNoteElement.querySelector('.voice-duration');
+        const currentMinutes = Math.floor(currentTime / 60);
+        const currentSeconds = currentTime % 60;
+        
+        if (currentMinutes > 0) {
+            duration.textContent = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+        } else {
+            duration.textContent = `0:${currentSeconds.toString().padStart(2, '0')}`;
+        }
+    }
+    
+    function playVoiceNote(voiceNoteElement) {
+        event.stopPropagation();
+        
+        const playIcon = voiceNoteElement.querySelector('.voice-play-icon');
+        const voiceBars = voiceNoteElement.querySelectorAll('.voice-bar');
+        
+        // Stop any currently playing voice note
+        if (currentVoiceNote && currentVoiceNote !== voiceNoteElement) {
+            stopVoiceNote(currentVoiceNote);
+        }
+        
+        if (isVoiceNotePlaying && currentVoiceNote === voiceNoteElement) {
+            // Pause current voice note
+            pauseVoiceNote(voiceNoteElement);
+        } else {
+            // Play voice note
+            currentVoiceNote = voiceNoteElement;
+            isVoiceNotePlaying = true;
+            
+            // Create audio element if not exists
+            if (!currentAudio) {
+                currentAudio = new Audio('audio/oral.mp3');
+                currentAudio.addEventListener('timeupdate', function() {
+                    const currentTime = Math.floor(currentAudio.currentTime);
+                    showCurrentTime(voiceNoteElement, currentTime);
+                });
+                
+                currentAudio.addEventListener('ended', function() {
+                    stopVoiceNote(voiceNoteElement);
+                });
+                
+                currentAudio.addEventListener('error', function() {
+                    stopVoiceNote(voiceNoteElement);
+                    showToast('Error al cargar el audio');
+                });
+            }
+            
+            // Change icon to pause
+            playIcon.setAttribute('data-lucide', 'pause');
+            lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
+            
+            // Animate voice bars
+            voiceBars.forEach(bar => bar.classList.add('voice-active'));
+            
+            // Play audio
+            currentAudio.play();
+        }
+    }
+    
+    function pauseVoiceNote(voiceNoteElement) {
+        const playIcon = voiceNoteElement.querySelector('.voice-play-icon');
+        const voiceBars = voiceNoteElement.querySelectorAll('.voice-bar');
+        
+        // Change icon back to play
+        playIcon.setAttribute('data-lucide', 'play');
+        lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
+        
+        // Stop animation
+        voiceBars.forEach(bar => bar.classList.remove('voice-active'));
+        
+        // Pause audio
+        if (currentAudio) {
+            currentAudio.pause();
+        }
+        
+        isVoiceNotePlaying = false;
+    }
+    
+    function stopVoiceNote(voiceNoteElement) {
+        const playIcon = voiceNoteElement.querySelector('.voice-play-icon');
+        const voiceBars = voiceNoteElement.querySelectorAll('.voice-bar');
+        
+        // Change icon back to play
+        playIcon.setAttribute('data-lucide', 'play');
+        lucide.createIcons({ attrs: { strokeWidth: 1.5 } });
+        
+        // Stop animation
+        voiceBars.forEach(bar => bar.classList.remove('voice-active'));
+        
+        // Stop and reset audio
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+        }
+        
+        // Reset to show total duration
+        const totalDuration = parseInt(voiceNoteElement.dataset.totalDuration) || 0;
+        showTotalDuration(voiceNoteElement, totalDuration);
+        
+        isVoiceNotePlaying = false;
+        currentVoiceNote = null;
+    }
+
     if ('speechSynthesis' in window) { speechSynthesis.onvoiceschanged = () => {}; speechSynthesis.getVoices(); }
 
     // === TOAST ===
